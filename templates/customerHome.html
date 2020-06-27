@@ -1,0 +1,20 @@
+{% extends "layoutHome.html" %}
+
+
+{% block body %}
+	<div class="navbar-header">    
+        <a class="button logout" onclick="openNav()"><i class="fa fa-navicon"></i></a>
+        <a><img src="/static/img/logo.png"></a>
+        <b class="button logout" onclick="window.location.href='/customer/login'"><i class="fa fa-sign-out"></i></b>
+    </div>
+{% endblock %}
+
+{% block content %} 
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href='/customer/home'><i class="fa fa-home" aria-hidden="true" title="Home"></i></a>
+        <a href='/customer/profile'><i class="fa fa-user" aria-hidden="true" title="Personal Profile"></i></a>
+        <a href='/customer/trip'><i class="fa fa-road" aria-hidden="true" title="Trip Simulation"></i></a>
+        <a href='/customer/analytic'><i class="fa fa-line-chart" aria-hidden="true" title="Analytic Results"></i></a>
+    </div>
+{% endblock %}

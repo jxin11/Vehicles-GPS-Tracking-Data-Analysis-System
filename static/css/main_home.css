@@ -1,0 +1,217 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+body, html{
+    margin: 0;
+    padding: 0;
+    font-family: "Lato", sans-serif;
+    font-size: 100%;
+    background-color: rgb(221, 225, 235);
+    width: 100%;
+    height: 100%;
+}
+
+.navbar-header {
+    display: block;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    position: fixed;
+    z-index: 99999;
+    /* padding: 20px 0px; */
+    /* height: 70px; */
+    /* border: 100px solid rgb(211, 31, 31); */
+}
+
+.navbar-header a, .navbar-header b {
+    float: left;
+    text-align: center;
+    /* padding: 0px 8px; */
+    color: white;
+    text-decoration: none;
+    font-size: 45px;
+    /* display: inline; */
+    /* border: 1px solid rgb(211, 31, 31); */
+}
+
+.navbar-header b {
+    float: right;
+}
+
+img{
+    width: 280px;
+    height: 65px;
+}
+
+.button{
+    background-color: none; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 0px 16px; /* Some padding */
+    cursor: pointer; /* Mouse pointer on hover */
+    height:70px;
+    align-items: center;
+}
+
+.logout{
+    float: right;
+    display: stretch;
+    flex-flow: row wrap;
+    align-items: center;
+    font-size: 45px;
+}
+
+i{
+    color: white;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: rgb(82, 85, 92);
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+    text-decoration: none;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    /* padding: 16px; */
+    height: 100%;
+    width: 100%;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.sidenav i {
+    padding: 2px 2px 15px 2px;
+    text-decoration: none;
+    font-size: 45px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    /* border: 1px solid rgb(211, 31, 31); */
+}
+
+.sidenav i:hover {
+    color: #f1f1f1;
+    text-decoration: none;
+}
+
+/* .dashboard{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #e09898;
+    border: 1px solid rgb(211, 31, 31);    
+} */
+
+.main-content {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(221, 225, 235);
+    padding: 100px;
+    /* padding: 85px 20px 20px;
+    min-height: calc(100vh - 61px); */
+    /* @include to($breakpoint-md) {
+      padding: 85px 5px 5px;
+    } */
+}
+
+.container{
+    display: flex;
+    padding: 40px 50px 50px 50px;
+    min-width: 100%;
+    /* min-height: 100%; */
+    /* width: 100%; */
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    /* border: 1px solid rgb(211, 31, 31); */
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-content: left;
+    flex-wrap: nowrap;
+    border: 1px solid white;
+    width: 100%;
+    flex:1;   
+    padding: 10px 10px 10px 40px;
+}
+
+.card{
+    /* background-color: black; */
+    /* border: 1px solid white; */
+    width: 90%;
+    padding: 10px;
+}
+
+.card-title{
+    font-size: 3.18em;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    color: black;
+}
+
+#chart{
+    background-color: #111;
+    box-shadow: 0 3rem 5rem -2rem rgba(48, 14, 241, 0.6);
+    padding: 20px;
+}
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url(../img/Preloader.gif) center no-repeat rgb(221, 225, 235);
+}

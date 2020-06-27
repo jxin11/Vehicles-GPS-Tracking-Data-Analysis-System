@@ -1,0 +1,196 @@
+{% extends "layoutCust.html" %}
+
+{% block content %} 
+<div class="container">
+
+    <!-- First Row: Customer ID-->
+    <div class="row">
+        
+        <!-- Customer ID -->
+        <div class="column-a">
+            <div class="card" style="background-color: black;">
+                <div class="card-body"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp Customer ID &nbsp &nbsp 
+                    <div class="pull-right"><var>{{cust_id}}</var></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br> <br> 
+
+    <!-- Distance -->
+    <div class="row">
+        <div class="card card-b" style="background-color: black;">
+            <div class="card-body">
+                <a class="collapsed" data-toggle="collapse" href="#collapse-dist" aria-expanded="false" aria-controls="collapse-dist" id="heading-dist" class="d-block">
+                    <i class="fa fa-road" aria-hidden="true"></i>&nbsp Total Distance Travelled
+                    <i class="fa fa-chevron-down pull-right" style="padding: 6px;"></i>
+                </a>
+            </div>
+            <div id="collapse-dist" class="collapse" aria-labelledby="heading-dist">
+                <div class="card-body"><a>Distance Travelled</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ total_dist }}</var><var> km</var>
+                    </div>
+                </div>
+                
+                <div class="card-body"><a>Graph of Distance Travelled against Date</a>
+                    <canvas id="dist_chart" width=60% height=25px></canvas>
+                    <script>
+                        legend = 'Total Distance Travelled (km)'
+                        labels = [{% for item in date %}
+                                "{{item}}",
+                                {% endfor %}]
+                        values = [{% for item in dist %}
+                                "{{item}}",
+                                {% endfor %}]
+                        distGraph(legend, labels, values);
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br> <br> 
+
+    <!-- Speed -->
+    <div class="row">
+        <div class="card card-b" style="background-color: black;">
+            <div class="card-body">
+                <a class="collapsed" data-toggle="collapse" href="#collapse-speed" aria-expanded="false" aria-controls="collapse-speed" id="heading-speed" class="d-block">
+                    <i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp Speed &nbsp &nbsp
+                    <i class="fa fa-chevron-down pull-right" style="padding: 6px;"></i>
+                </a>
+            </div>
+            <div id="collapse-speed" class="collapse" aria-labelledby="heading-speed">
+
+                <!-- Maximum Speed -->
+                <div class="card-body"><a>Maximum</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ max_speed }}</var><var> km/h</var>
+                        {% if (max_speed|int) < 90 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif ((max_speed|int)-90) <= 25 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Average Speed -->
+                <div class="card-body"><a>Average</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ avg_speed }}</var><var> km/h</var>
+                        {% if (avg_speed|int) < 90 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif ((avg_speed|int)-90) <= 25 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Graph -->
+                <form method="POST" action="/customer/profile">
+                    <div class="card-body"><a>Graph of Speed against Time</a>
+                        <div class="pull-right">
+                            <div class="select">
+                                <select id="selectSpeed" class="theme-construction" onchange="selectFunction({{ speedGraph }})">
+                                    <option value="0">Select Date:</option>
+                                    {% for date in date_list %}
+                                        <option value="{{ date }}">{{ date }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <canvas id="speed_chart" width=60% height=25px></canvas>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br> <br> 
+
+    <!-- Acceleration -->
+    <div class="row">
+        <div class="card card-b" style="background-color: black;">
+            <div class="card-body">
+                <a class="collapsed" data-toggle="collapse" href="#collapse-acc" aria-expanded="false" aria-controls="collapse-acc" id="heading-acc" class="d-block">
+                    <img src="/static/img/acc2.png" style="width:38px; height: 30px; padding: 0;">&nbsp Acceleration &nbsp &nbsp
+                    <i class="fa fa-chevron-down pull-right" style="padding: 6px;"></i>
+                </a>
+            </div>
+            <div id="collapse-acc" class="collapse" aria-labelledby="heading-acc">
+                
+                <!-- Maximum Deceleration -->
+                <div class="card-body"><a>Maximum Deceleration</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ min_acceleration }}</var><var> m/s<sup>2</sup></var>
+                        {% if (min_acceleration|int) > -3 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif (min_acceleration|int) > -9 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Maximum Acceleration -->
+                <div class="card-body"><a>Maximum Acceleration</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ max_acceleration }}</var><var> m/s<sup>2</sup></var>
+                        {% if (max_acceleration|int) < 3 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif (max_acceleration|int) < 7 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Average Acceleration -->
+                <div class="card-body"><a>Average Acceleration</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ avg_acceleration }}</var><var> m/s<sup>2</sup></var>
+                        {% if (avg_acceleration|int) < 3 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif (avg_acceleration|int) < 7 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <form method="POST" action="/customer/profile">
+                    <div class="card-body"><a>Graph of Acceleration against Time</a>
+                        <div class="pull-right">
+                            <div class="select">
+                                <select id="selectAcceleration" class="theme-construction" 
+                                        onchange="selectFunctionAcc({{ accelerationGraph }})">
+                                    <option value="0">Select Date:</option>
+                                    {% for date in date_list %}
+                                        <option value="{{ date }}">{{ date }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <canvas id="acc_chart" width=60% height=25px></canvas>
+            
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

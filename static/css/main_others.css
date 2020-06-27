@@ -1,0 +1,361 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+body, html{
+    margin: 0;
+    padding: 0;
+    font-family: "Lato", sans-serif;
+    font-size: 100%;
+    background-color: rgb(221, 225, 235);
+    width: 100%;
+    height: 100%;  /* initially in vh */
+}
+
+.navbar-header {
+    display: block;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    position: fixed;
+    z-index: 99999;
+    /* padding: 20px 0px; */
+    /* height: 70px; */
+    /* border: 100px solid rgb(211, 31, 31); */
+}
+
+.navbar-header a, .navbar-header b {
+    float: left;
+    text-align: center;
+    /* padding: 0px 8px; */
+    color: white;
+    text-decoration: none;
+    font-size: 45px;
+    /* display: inline; */
+    /* border: 1px solid rgb(211, 31, 31); */
+}
+
+.navbar-header b {
+    float: right;
+}
+
+img{
+    width: 280px;
+    height: 65px;
+}
+
+.button{
+    background-color: none; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 0px 16px; /* Some padding */
+    /* font-size: 50px; Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    height:70px;
+    align-items: center;
+}
+
+.logout{
+    float: right;
+    display: stretch;
+    flex-flow: row wrap;
+    align-items: center;
+    font-size: 45px;
+}
+
+.navbar-header i{
+    /* color: rgb(255, 255, 255); */
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: rgb(82, 85, 92);
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+    text-decoration: none;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    /* padding: 16px; */
+    height: 100%;
+    width: 100%;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.sidenav i {
+    padding: 2px 2px 15px 2px;
+    text-decoration: none;
+    font-size: 45px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    /* border: 1px solid rgb(211, 31, 31); */
+}
+
+.sidenav i:hover {
+    color: #f1f1f1;
+    text-decoration: none;
+}
+
+.main-content {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(221, 225, 235);
+    padding: 60px 90px 60px 90px;
+}
+
+.container{
+    display: flex;
+    padding: 40px 0px 50px 0px;
+    min-width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+    flex-wrap: nowrap;
+    /* border: 1px solid white; */
+    width: 100%;
+    /* flex:1;    */
+    /* padding: 10px 10px 10px 40px; */
+}
+
+.column-a{
+    display: flex;
+    /* border: 1px solid black; */
+    width: 100%;
+    /*justify-content: flex-start;*/
+}
+
+.column-b{
+    display: flex;
+    /* border: 1px solid black; */
+    width: 50%;
+    justify-content: flex-end;
+}
+
+.card {
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 2rem 5rem -2rem rgba(48, 14, 241, 0.6);
+    padding: 2px;
+}
+
+.card-body{
+    font-size: 2.18em;
+    color:rgb(221, 225, 235);
+}
+
+.card-header{
+    font-size: 2.18em;
+    color:rgb(221, 225, 235);
+}
+
+.card-b{
+    /* width: 80vh; */
+    /* background-color: black; */
+    width: 100%; 
+    height: 100%;
+}
+
+.card-body .fa-chevron-down{
+    transition: .2s transform ease-in-out;
+}
+
+.card-body .collapsed .fa-chevron-down{
+    transform: rotate(90deg);
+}
+
+#heading-speed, #heading-dist, #heading-acc{
+    text-decoration: none;
+    color:rgb(221, 225, 235);
+}
+
+#collapse-speed .card-body, #collapse-dist .card-body, #collapse-acc .card-body{
+    background-color: rgb(51, 49, 49);
+    border: 2px solid black;
+    font-size: 1.8em;
+}
+
+/* Select Box */ 
+
+.theme-construction {
+    --radius: 10;
+    --baseFg: rgb(221, 225, 235);
+    --baseBg: black;
+    --accentFg: rgb(221, 225, 235);
+    --accentBg: black;
+    --hover: rgb(82, 85, 92);
+}
+
+select {
+    font: 0.7em "Lato", sans-serif;
+    width: 170px;
+    -webkit-appearance: none;
+    appearance: none;
+    color: var(--baseFg);
+    border: 0.2px solid var(--baseFg);
+    line-height: 1;
+    outline: 0.8;
+    padding: 0.55em 1.5em 0.45em 0.55em;
+    border-radius: var(--radius);
+    background-color: var(--baseBg);
+    background-image: linear-gradient(var(--baseBg), var(--baseBg)),    
+                        linear-gradient(-135deg, transparent 50%, var(--accentFg) 50%),
+                        linear-gradient(-225deg, transparent 50%, var(--accentFg) 50%),
+                        linear-gradient(var(--accentFg) 42%, var(--accentBg) 42%);     /* original both baseFg */
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    background-size: 1px 100%, 20px 22px, 20px 22px, 20px 100%;    /* 20 -> 30 ; 22 -> 28*/
+    background-position: right 20px center, right bottom, right bottom, right bottom;   
+}
+
+.selectRoadTrip {
+    font: 0.5em;
+}
+
+select:hover {
+    background-image: linear-gradient(var(--hover), var(--hover)),
+                        linear-gradient(-135deg, transparent 50%, var(--hover) 50%),
+                        linear-gradient(-225deg, transparent 50%, var(--hover) 50%),
+                        linear-gradient(var(--hover) 42%, var(--accentBg) 42%);
+}
+
+select:active {
+    /*background-image: linear-gradient(var(--accentFg), var(--accentFg)),*/
+    /*linear-gradient(-135deg, transparent 50%, var(--accentFg) 50%),*/
+    /*linear-gradient(-225deg, transparent 50%, var(--accentFg) 50%),*/
+    /*linear-gradient(var(--accentFg) 42%, var(--accentBg) 42%);*/
+    /*color: var(--accentBg);*/
+    /*border-color: var(--accentFg);*/
+    /*background-color: var(--accentFg);*/
+}
+
+/******************** end (Select Box)  */
+
+
+#map_canvas{
+    width: 100%;
+    height: 520px;
+    border: 1px solid black;
+    float: center;
+}
+
+#directions {
+    width: 38%;
+    float: right; 
+}
+
+#travellingBehaviour_canvas{
+    width: 95%;
+    height: 300px;
+    font-size: 15px;
+    padding-top: 10px;
+}
+
+table {
+    width:80%;
+}
+
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+    font-family: "Lato", sans-serif;
+    font-size: 90%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+
+.dot {
+    box-sizing: border-box;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: .125rem solid;
+    display: inline-block;
+}
+
+.dot--full { background-color: currentColor; }
+
+.red { color: red; }
+.yellow { color: gold; }
+.green { color: limegreen; }
+
+.green_yellow { color:#f4fb16; }
+.orange {color: #fb7116;}
+
+table.table{
+    color: rgb(221, 225, 235);
+}
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url(../img/Preloader.gif) center no-repeat rgb(221, 225, 235);
+}
+
+.gauge {
+  width: 620px;   /*580*/
+  height: 340px;    /*380*/
+  margin-left: auto;
+  margin-right: auto;
+  /*padding: 10;
+  display: flex;
+  justify-content: center;*/
+}

@@ -1,0 +1,146 @@
+{% extends "layoutMng.html" %}
+
+{% block content %} 
+
+<script src="{{url_for('static', filename='js/mngBehaviour.js')}}"></script>
+<script src="{{url_for('static', filename='js/exportNprint.js')}}"></script>
+
+
+
+<div class="container">
+
+    <!-- Travelling Behaviour -->
+    <div class="row">
+        <div class="card card-b" style="background-color: black;" id='travellingBehaviour'>
+            <div class="card-body">
+                <a class="collapsed" data-toggle="collapse" href="#collapse-dist" aria-expanded="false" aria-controls="collapse-dist" id="heading-dist" class="d-block">
+                    <i class="fas fa-route" aria-hidden="true"></i>&nbsp Customers' Travelling Behaviour 
+                    <i class="fa fa-chevron-down pull-right" style="padding: 6px;"></i>
+                </a>
+            </div>
+            <div id="collapse-dist" class="collapse" aria-labelledby="heading-dist">
+                
+                <div class="card-body">
+                    <canvas id="tb_chart" width=60% height=25px></canvas>
+                    <script>
+                        legend = 'Frequency'
+                        labels = [{% for tb, freq in tbFreq.items() %}
+                                "{{tb}}",
+                                {% endfor %}]
+                        values = [{% for tb, freq in tbFreq.items() %}
+                                "{{freq}}",
+                                {% endfor %}]
+                        tbChart(legend, labels, values);
+                    </script>
+
+                    <br>
+
+                    <table id='tbTable' style='width: 100%'>
+                        <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Total Distance Travelled</th>
+                            <th>Travelling Behaviour</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for id, dist, tb in id_dist_tb %}
+                            <tr>
+                                <td>{{ id }}</td>
+                                <td>{{ dist }} km</td>
+                                <td>
+                                    {{ tb }} &nbsp
+                                    {% if 'Rare' in tb %}
+                                        <div class="dot  green  dot--full"></div>
+                                    {% elif 'Average' in tb %}
+                                        <div class="dot  yellow  dot--full"></div>
+                                    {% else %}
+                                        <div class="dot  red  dot--full"></div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary" style="margin: 6px" onclick="exportCSV('tbTable', 'travellingBehaviour')">Export</button>
+                    <button type="button" class="btn btn-info" style="margin: 6px" onclick="printFunction('travellingBehaviour')">Print</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br> <br>
+    
+    <!-- Driving Behaviour -->
+    <div class="row">
+        <div class="card card-b" style="background-color: black;" id='drivingBehaviour'>
+            <div class="card-body">
+                <a class="collapsed" data-toggle="collapse" href="#collapse-speed" aria-expanded="false" aria-controls="collapse-speed" id="heading-speed" class="d-block">
+                    <img src="/static/img/driving.png" style="width:40px; height: 40px;">&nbsp Customers' Driving Behaviour
+                    <i class="fa fa-chevron-down pull-right" style="padding: 6px;"></i>
+                </a>
+            </div>
+            <div id="collapse-speed" class="collapse" aria-labelledby="heading-speed">
+                <div class="card-body">
+                    <canvas id="db_chart" width=60% height=25px></canvas>
+                    <script>
+                        legend = 'Frequency'
+                        labels = [{% for db, freq in dbFreq.items() %}
+                                "{{db}}",
+                                {% endfor %}]
+                        values = [{% for db, freq in dbFreq.items() %}
+                                "{{freq}}",
+                                {% endfor %}]
+                        dbChart(legend, labels, values);
+                    </script>
+
+                    <br>
+                    
+                    <table style='width: 100%' id='dbTable'>
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Driving Mark</th>
+                                <th>Driving Behaviour</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for id, mark, db in id_mark_db %}
+                                <tr>
+                                    <td>{{ id }}</td>
+                                    <td>{{ mark }}</td>
+                                    <td>
+                                        {{ db }} &nbsp
+                                        {% if 'Safe' in db %}
+                                            <div class="dot  green  dot--full"></div>
+                                        {% elif 'Aggressive' in db %}
+                                            <div class="dot  yellow  dot--full"></div>
+                                        {% else %}
+                                            <div class="dot  red  dot--full"></div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary" style="margin: 6px" onclick="exportCSV('dbTable', 'drivingBehaviour')">Export</button>
+                    <button type="button" class="btn btn-info" style="margin: 6px" onclick="printFunction('drivingBehaviour')">Print</button>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="jquery-1.9.0.js"></script>
+<script src="jquery.PrintArea.js"></script>
+
+{% endblock %}

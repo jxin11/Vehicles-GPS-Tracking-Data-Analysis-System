@@ -1,0 +1,33 @@
+{% extends "layoutCust.html" %}
+
+{% block content %} 
+
+<script src="{{url_for('static', filename='js/trip.js')}}"></script>
+
+<div class="container">
+	<div class="row">
+        <div class="card card-b" style="background-color: black;">
+            <div class="card-body">
+                <i class="fa fa-road" aria-hidden="true"></i><a>&nbsp Road Trip</a>
+            
+
+	            <div class="pull-right">
+	                <div class="select selectRoadTrip">
+	                    <select id="selectRoadTrip" class="theme-construction" onchange="selectFunctionTrip({{ trip }})" 
+	                     style='font-size: 0.6em;'>
+	                        <option value="0">Select Date:</option>
+	                        {% for date in date_list %}
+	                            <option value="{{ date }}">{{ date }}</option>
+	                        {% endfor %}
+	                    </select>
+	                </div>
+	            </div>
+	        </div>
+
+			<div id="map_canvas" style="padding: 15px 15px 15px 15px;"></div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,180 @@
+{% extends "layoutCust.html" %}
+
+{% block content %} 
+
+<script src="{{url_for('static', filename='js/custBehaviour.js')}}"></script>
+<link href="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<div class="container">
+    
+    <!-- Travelling Behaviour -->
+    <div class="row">
+        <div class="card card-b" style="background-color: black;">
+            <div class="card-body">
+                <a class="collapsed" data-toggle="collapse" href="#collapse-dist" aria-expanded="false" aria-controls="collapse-dist" id="heading-dist" class="d-block">
+                    <i class="fas fa-route" aria-hidden="true"></i>&nbsp Travelling Behaviour 
+                    <i class="fa fa-chevron-down pull-right" style="padding: 6px;"></i>
+                </a>
+            </div>
+            <div id="collapse-dist" class="collapse" aria-labelledby="heading-dist">
+                <div class="card-body"><a>Total Distance Travelled</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ total_dist }}</var><var> km</var>
+                    </div>
+                </div>
+                <div class="card-body" style="color: rgb(221, 225, 235);"><a>Travelling Behaviour Classification</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ tb }} &nbsp
+                            {% if 'Rare' in tb %}
+                                <div class="dot  green  dot--full"></div>
+                            {% elif 'Average' in tb %}
+                                <div class="dot  green_yellow  dot--full"></div>
+                            {% else %}
+                                <div class="dot  orange  dot--full"></div>
+                            {% endif %}
+                        </var>
+                    </div>
+
+                    <script>
+                        tbClass({{minTotalDist}}, {{maxTotalDist}}, {{r1}}, {{r2}}, {{total_dist}});
+                    </script>
+
+                    <div id="travellingBehaviour_canvas"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br> <br>
+    <!-- Driving Behaviour -->
+    <div class="row">
+        <div class="card card-b" style="background-color: black;">
+            <div class="card-body">
+                <a class="collapsed" data-toggle="collapse" href="#collapse-speed" aria-expanded="false" aria-controls="collapse-speed" id="heading-speed" class="d-block">
+                    <img src="/static/img/driving.png" style="width:40px; height: 40px;">&nbsp Driving Behaviour
+                    <i class="fa fa-chevron-down pull-right" style="padding: 6px;"></i>
+                </a>
+            </div>
+            <div id="collapse-speed" class="collapse" aria-labelledby="heading-speed">
+                
+                <div class="card-body"><a>Maximum Speed</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ max_speed }}</var><var> km/h</var>
+                        {% if (max_speed|int) < 90 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif ((max_speed|int)-90) <= 25 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body"><a>Average Speed</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ avg_speed }}</var><var> km/h</var>
+                        {% if (avg_speed|int) < 90 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif ((avg_speed|int)-90) <= 25 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body"><a>Maximum Deceleration</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ min_acceleration }}</var><var> km/h<sup>2</sup></var>
+                        {% if (min_acceleration|int) > -3 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif (min_acceleration|int) > -9 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% elif (min_acceleration|int) <= -9 %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body"><a>Maximum Acceleration</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ max_acceleration }}</var><var> km/h<sup>2</sup></var>
+                        {% if (max_acceleration|int) < 1.5 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif (max_acceleration|int) < 3.5 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body"><a>Average Acceleration</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ avg_acceleration }}</var><var> km/h<sup>2</sup></var>
+                        {% if (avg_acceleration|int) < 1.5 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif (avg_acceleration|int) < 3.5 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body"><a>Driving Behaviour Classification</a>
+                    <div class="pull-right">
+                        <var id="demo">{{ drivingClass }} &nbsp
+                            {% if 'Safe' in drivingClass %}
+                                <div class="dot  green  dot--full"></div>
+                            {% elif 'Aggressive' in drivingClass %}
+                                <div class="dot  yellow  dot--full"></div>
+                            {% else %}
+                                <div class="dot  red  dot--full"></div>
+                            {% endif %}
+                        </var>
+                    </div>
+
+                    <div class='gauge'>
+                        <canvas id="chartjs-gauge"></canvas>
+                        <script>
+                            var drivingClass = {{ drivingClass|tojson }};
+                            dbClass({{ drivingMark }}, drivingClass);
+                        </script>
+                    </div>
+
+                    <div>
+                    <table style='width: 100%'>
+                        <tr>
+                            <th>Date</th>
+                            <th>Driving Mark</th>
+                            <th>Driving Behavior</th>
+                        </tr>
+                        {% for date, mark, class in DBperDay %}
+                            <tr>
+                                <td>{{ date }}</td>
+                                <td>{{ mark }}</td>
+                                <td>{{ class }} &nbsp
+                                    {% if 'Safe' in class %}
+                                        <div class="dot  green  dot--full"></div>
+                                    {% elif 'Aggressive' in class %}
+                                        <div class="dot  yellow  dot--full"></div>
+                                    {% else %}
+                                        <div class="dot  red  dot--full"></div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div> 
+
+{% endblock %}

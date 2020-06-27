@@ -1,0 +1,18 @@
+{% extends "layoutHome.html" %}
+
+{% block body %}
+	<div class="navbar-header">    
+        <a class="button logout" onclick="openNav()"><i class="fa fa-navicon"></i></a>
+        <a><img src="/static/img/logo.png"></a>
+        <b class="button logout" onclick="window.location.href='/'"><i class="fa fa-sign-out"></i></b>
+    </div>
+{% endblock %}
+
+{% block content %} 
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/manager/home"><i class="fa fa-home" aria-hidden="true" title="Home"></i></a>
+        <a href='/manager/overview'><i class="fa fa-users" aria-hidden="true" title="Customer Overview"></i></a>
+        <a href='/manager/analytic'><i class="fa fa-line-chart" aria-hidden="true" title="Analytic Results"></i></a>
+    </div>
+{% endblock %}

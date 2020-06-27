@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Analysis of Vehicles GPS Tracking Data</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script> <!--gauge chart-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script> <!--labels-->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> <!--labels-->
+
+    <script src="https://rawgit.com/chartjs/chartjs-plugin-annotation/master/chartjs-plugin-annotation.js"></script>
+    <script src="https://kit.fontawesome.com/017d7eaeea.js" crossorigin="anonymous"></script>     <!--Font Awesome-->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>    <!-- Plotly.js -->
+    
+    <!-- Travelling Behaviour: Bullet Chart -->
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main_others.css') }}">
+    <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/customerProfile.js')}}"></script>
+
+    <!-- Google Map Api -->
+    <script src='https://maps.googleapis.com/maps/api/js?key={{Google_Map_API_key}}&callback=myMap'></script> 
+
+    <!-- Loading Animation -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    
+    <script>
+
+        $(document).ready(function(){
+            $(".se-pre-con").hide();});
+
+        $(window).bind('beforeunload',function(){ 
+            $(".se-pre-con").show();});
+
+    </script>
+    
+</head>
+
+<body>
+
+    <div class="se-pre-con"></div>
+    
+    <!-- Side Nav -->
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/customer/home"><i class="fa fa-home" aria-hidden="true" title="Home"></i></a>
+        <a href='/customer/profile'><i class="fa fa-user" aria-hidden="true" title="Profile"></i></a>
+        <a href='/customer/trip'><i class="fa fa-road" aria-hidden="true" title="Trip Simulation"></i></a>
+        <a href='/customer/analytic'><i class="fa fa-line-chart" aria-hidden="true" title="Analytic Results"></i></a>
+    </div>
+    
+    <div id="main">
+        <!-- Header -->
+        <div class="navbar-header">    
+            <a class="button logout" onclick="openNav()"><i class="fa fa-navicon" style="color:white;"></i></a>
+            <a><img src="/static/img/logo.png"></a>
+            <b class="button logout" onclick="window.location.href='/customer/login'"><i class="fa fa-sign-out"></i></b>
+        </div>
+        
+        <div class='main-content'>
+            {% block content %} {% endblock %}
+        </div>
+    </div>  
+
+</body>
+
+</html>

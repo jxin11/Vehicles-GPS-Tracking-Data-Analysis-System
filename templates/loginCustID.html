@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Analysis of Vehicles GPS Tracking Data</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/017d7eaeea.js" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='js/selection.js')}}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+<body>   
+    <div class="container">
+        <div class="row">
+            <img src="/static/img/logo.png" width="700" height="400"> 
+        </div>
+        
+        <div class='row'>
+            <div class="column">
+                <!-- <div class="button button_login" onclick="window.location.href='/customer'">Customer</div> -->
+                <div class="search_id">
+                    <div class="select">
+                        <select name="search_id" id="search_id" >
+                            <option value="0">Select ID:</option>
+                            {% for id in allCollections %}
+                                <option value="{{ id }}">{{ id }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <br>
+
+                &nbsp &nbsp
+
+                <a style='cursor: pointer;' onclick="selectID()"><i class="fas fa-forward"></i></a>
+                
+            </div>
+            <div class = 'column'>
+                <div class="button button_goBack" onclick="window.location.href='/'">Back</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+{% extends "layoutMng.html" %}
+
+{% block content %} 
+
+<script src="{{url_for('static', filename='js/exportNprint.js')}}"></script>
+
+<div class="container">
+    
+    <div class="row">
+        <!-- Total No. of Customer -->
+        <div class="column-a">
+            <div class="card" style="background-color: black;">
+                <div class="card-body"><i class="fa fa-users" aria-hidden="true"></i>&nbsp Total No. of Customer 
+                    <div class="pull-right"><var>{{ custNo }}</var></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br> <br>
+
+    <!-- Distance -->
+    <div class="row">
+        <div class="card card-b" style="background-color: black;" id='distance'>
+            <div class="card-body">
+                <a class="collapsed" data-toggle="collapse" href="#collapse-dist" aria-expanded="false" aria-controls="collapse-dist" id="heading-dist" class="d-block">
+                    <i class="fa fa-road" aria-hidden="true"></i>&nbsp Total Distance Travelled &nbsp &nbsp 
+                    <i class="fa fa-chevron-down pull-right" style="padding: 6px;"></i>
+                </a>
+            </div>
+            <div id="collapse-dist" class="collapse" aria-labelledby="heading-dist">
+                
+                <div class="card-body"><a>Minimum</a>
+                    <div class="pull-right"><var>{{ minTotalDist }}</var><var> km</var></div>
+                </div>
+
+                <div class="card-body"><a>Maximum</a>
+                    <div class="pull-right"><var>{{ maxTotalDist }}</var><var> km</var></div>
+                </div>
+
+                <div class="card-body"><a>Average</a>
+                    <div class="pull-right"><var>{{ avgTotalDist }}</var><var> km</var></div>
+                </div>
+
+                <div class="card-body">
+                    <table class="table" id='distanceTable' style='width: 100%'>
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Total Distance Travelled</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for id, dist in id_dist %}
+                            <tr>
+                                <td>{{ id }}</td>
+                                <td>{{ dist }} km</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary" style="margin: 6px" onclick="exportCSV('distanceTable', 'totalDistanceTravelled')">Export</button>
+                    <button type="button" class="btn btn-info" style="margin: 6px" onclick="printFunction('distance')">Print</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br> <br>
+
+    <!-- Speed -->
+    <div class="row">
+        <div class="card card-b" style="background-color: black;" id='speed'>
+            <div class="card-body">
+                <a class="collapsed" data-toggle="collapse" href="#collapse-speed" aria-expanded="false" aria-controls="collapse-speed" id="heading-speed" class="d-block">
+                    <i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp Speed &nbsp &nbsp
+                    <i class="fa fa-chevron-down pull-right" style="padding: 6px;"></i>
+                </a>
+            </div>
+            <div id="collapse-speed" class="collapse" aria-labelledby="heading-speed">
+                <div class="card-body"><a>Maximum</a>
+                    <div class="pull-right"><var>{{ maxSpeed }}</var><var> km/h</var>
+                        {% if (maxSpeed|int) < 90 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif ((maxSpeed|int)-90) <= 25 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <table class='table' id='speedTable' style='width: 100%'>
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Average Speed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for id, avgSpeed in id_avgSpeed %}
+                            <tr>
+                                <td>{{ id }}</td>
+                                <td>{{ avgSpeed }} km/h &nbsp
+                                    {% if (avgSpeed|int) < 90 %}
+                                        <div class="dot  green  dot--full"></div>
+                                    {% elif ((avgSpeed|int)-90) <= 25 %}
+                                        <div class="dot  yellow  dot--full"></div>
+                                    {% else %}
+                                        <div class="dot  red  dot--full"></div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary" style="margin: 6px" onclick="exportCSV('speedTable', 'avgSpeed')">Export</button>
+                    <button type="button" class="btn btn-info" style="margin: 6px" onclick="printFunction('speed')">Print</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <br> <br>
+
+    <!-- Acceleration -->
+    <div class="row">
+        <div class="card card-b" style="background-color: black;" id='acceleration'>
+            <div class="card-body">
+                <a class="collapsed" data-toggle="collapse" href="#collapse-acc" aria-expanded="false" aria-controls="collapse-acc" id="heading-acc" class="d-block">
+                    <img src="/static/img/acc2.png" style="width:38px; height: 30px; padding: 0;">&nbsp Acceleration &nbsp &nbsp
+                    <i class="fa fa-chevron-down pull-right" style="padding: 6px;"></i>
+                </a>
+            </div>
+            <div id="collapse-acc" class="collapse" aria-labelledby="heading-acc">
+                
+                <div class="card-body"><a>Maximum Deceleration</a>
+                    <div class="pull-right"><var>{{ minAcceleration }}</var><var> m/s<sup>2</sup></var>
+                        {% if (minAcceleration|int) > -3 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif (minAcceleration|int) > -9 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% elif (minAcceleration|int) <= -9 %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body"><a>Maximum Acceleration</a>
+                    <div class="pull-right"><var>{{ maxAcceleration }}</var><var> m/s</var><sup>2</sup>
+                        {% if (maxAcceleration|int) < 1.5 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif (maxAcceleration|int) < 3.5 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body"><a>Average</a>
+                    <div class="pull-right"><var>{{ avgAcceleration }}</var><var> m/s</var><sup>2</sup>
+                        {% if (avgAcceleration|int) < 1.5 %}
+                            <div class="dot  green  dot--full"></div>
+                        {% elif (avgAcceleration|int) < 3.5 %}
+                            <div class="dot  yellow  dot--full"></div>
+                        {% else %}
+                            <div class="dot  red  dot--full"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <table class='table' id='accelerationTable' style='width: 100%'>
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Average Acceleration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for id, avgAcceleration in id_avgAcceleration %}
+                            <tr>
+                                <td>{{ id }}</td>
+                                <td>{{ avgAcceleration }} m/s<sup>2</sup>&nbsp
+                                    {% if (avgAcceleration|int) < 1.5 %}
+                                        <div class="dot  green  dot--full"></div>
+                                    {% elif (avgAcceleration|int) < 3.5 %}
+                                        <div class="dot  yellow  dot--full"></div>
+                                    {% else %}
+                                        <div class="dot  red  dot--full"></div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary" style="margin: 6px" onclick="exportCSV('accelerationTable', 'avgAcceleration')">Export</button>
+                    <button type="button" class="btn btn-info" style="margin: 6px" onclick="printFunction('acceleration')">Print</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
