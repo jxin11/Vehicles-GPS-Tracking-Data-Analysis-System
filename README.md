@@ -8,3 +8,6 @@ To access to the system, the user is required to
 3. Click on the app.py to run the program.
 
 Demo: https://drive.google.com/file/d/1pfFwrnfJqHAYxrqK8HAmoKYYDIMNIoSv/view?usp=sharing
+
+![Description](https://user-images.githubusercontent.com/55281847/85980662-6a605880-ba15-11ea-9c9f-ae0a7b5759f1.jpg)
+
